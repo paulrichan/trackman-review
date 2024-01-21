@@ -66,7 +66,14 @@ function ReusableScatter({
           />
           <ReferenceLine x={0} stroke="rgba(255,0,0,0.2)" ifOverflow="extendDomain" />
           <ReferenceLine y={0} stroke="rgba(255,0,0,0.2)" ifOverflow="extendDomain" />
-          <Tooltip cursor={{ strokeDasharray: '3 3' }} formatter={(value) => `${Number(value).toFixed(2)}`} />
+          <Tooltip
+            cursor={{ strokeDasharray: '3 3' }}
+            formatter={(value) => `${Number(value).toFixed(2)}`}
+            labelFormatter={(_, payload) => {
+              const pitchName = payload[0]?.payload.pitchType
+              return <span className="font-bold">{`${pitchName}`}</span>
+            }}
+          />
           <Scatter data={movementData} fill="#8884d8">
             {movementData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={PITCHCOLORS[entry.pitchType]} />

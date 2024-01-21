@@ -12,8 +12,8 @@ function Visuals() {
     <>
       <VeloAreaChart pitcherData={pitcherData} pitchType={pitchType} />
 
-      <div className="grid md:grid-cols-3 gap-3">
-        <div className="bg-muted/50 shadow-md w-full h-[350px] p-3 relative">
+      <div className="grid md:grid-cols-7 gap-3">
+        <div className="bg-muted/50 shadow-md w-full h-[350px] p-3 relative col-span-2">
           <h2 className="font-semibold text-center">Movement</h2>
           <ReusableScatter
             data={pitcherData}
@@ -25,12 +25,12 @@ function Visuals() {
           />
         </div>
 
-        <div className="bg-muted/50 shadow-md w-full h-[350px] p-3">
+        <div className="bg-muted/50 shadow-md w-full h-[350px] p-3 col-span-3">
           <h2 className="font-semibold text-center">Usage</h2>
           <Usages data={pitcherData} />
         </div>
 
-        <div className="bg-muted/50 shadow-md w-full h-[350px] p-3 relative">
+        <div className="bg-muted/50 shadow-md w-full h-[350px] p-3 relative col-span-2">
           <h2 className="font-semibold text-center">Release</h2>
           <ReusableScatter
             data={pitcherData}

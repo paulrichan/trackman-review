@@ -17,12 +17,11 @@ function Usages({ data }: { data: TrackmanData[] }) {
     <div className="flex flex-col w-full h-full">
       <ResponsiveContainer width="100%" height="85%">
         <BarChart data={pitchUsage} margin={{ top: 20, right: 20, bottom: 10 }}>
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name" fontSize={12} />
           <YAxis domain={[0, 'dataMax']} />
           <Tooltip
             label="test"
             formatter={(value) => [`${((Number(value) / totalPitches) * 100).toFixed(1)}%`, `Percentage`]}
-            labelClassName="text-"
             labelFormatter={(_, payload) => {
               const pitchName = payload[0]?.payload.name
               return <span>{`${pitchName}`}</span>
