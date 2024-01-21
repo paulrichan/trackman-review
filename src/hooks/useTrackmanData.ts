@@ -1,11 +1,29 @@
 import { useDataStore } from '@/lib/store'
-import Parser from 'papaparse'
 import { useMemo, useEffect, useState } from 'react'
+import Parser from 'papaparse'
 
 export const useTrackmanData = (pitcher: string) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [data, setData] = useState<TrackmanData[] | null>(null)
+  const { file } = useDataStore((state) => ({ file: state.file }))
+  const [data, setParsedData] = useState<TrackmanData[] | null>(null)
   const [pitchType, setPitchType] = useDataStore((state) => [state.pitchType, state.setPitchType])
+
+  useEffect(() => {
+    const parseData = async () => {
+      if (file) {
+        const csv = await file.text()
+
+        Parser.parse(csv, {
+          complete: (results) => {
+            const data = results.data as TrackmanData[]
+            setParsedData(data)
+          },
+          header: true
+        })
+      }
+    }
+
+    if (file !== null) parseData()
+  }, [file])
 
   // Reduce the data to a list of unique pitchers
   const uniquePitchers = useMemo(() => {
@@ -42,34 +60,11 @@ export const useTrackmanData = (pitcher: string) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pitcher])
 
-  // Fetch the data
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true)
-      // FIXME: If coach approves dashboard, adapt fetch request to use internal API
-      const response = await fetch('/src/assets/2021_Phillies_Questionnaire.csv')
-      const reader = response.body?.getReader()
-      const result = await reader?.read() // raw stream
-      const decoder = new TextDecoder('utf-8')
-      const csv = decoder.decode(result?.value) // convert stream to string
-      Parser.parse(csv, {
-        complete: (results) => {
-          const data = results.data as TrackmanData[]
-          setData(data)
-        },
-        header: true
-      })
-
-      setIsLoading(false)
-    }
-    fetchData()
-  }, [])
-
   return {
     data,
     uniquePitchers,
     pitcherData: pitcherData.filteredData ?? [],
     uniquePitchTypes: pitcherData.uniquePitchTypes ?? [],
-    isLoading
+    file
   }
 }

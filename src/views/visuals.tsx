@@ -1,7 +1,4 @@
 import ReusableScatter from '@/components/reusable-scatter'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import Usages from '@/components/usage-bars'
 import VeloAreaChart from '@/components/velo-area-chart'
 import { useTrackmanData } from '@/hooks/useTrackmanData'
@@ -48,12 +45,6 @@ function Visuals() {
           />
         </div>
       </div>
-
-      <Label>Post Game Notes</Label>
-      <Textarea placeholder="Type your notes here..." rows={10} />
-
-      {/* TODO: Setup form if api permits submitting note data. */}
-      <Button className="md:w-1/3 mx-auto">Submit</Button>
     </>
   )
 }
