@@ -16,20 +16,22 @@ function App() {
 
   return (
     <>
-      <header className="py-3 border-b border-muted grid grid-cols-3 px-5 items-center">
-        <div>
-          <Label htmlFor="file">Trackman File</Label>
-          <Input
-            type="file"
-            name="file"
-            className="w-fit px-1"
-            onChange={(e) => {
-              const file = e.target.files?.[0]
-              setFile(file ?? null)
-            }}
-          />
+      <header className="py-3 border-b border-muted ">
+        <div className="max-w-7xl mx-auto grid gap-3 md:grid-cols-3 items-center px-5 ">
+          <div className="order-1">
+            <Label htmlFor="file">Trackman File</Label>
+            <Input
+              type="file"
+              name="file"
+              className="w-fit px-1"
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                setFile(file ?? null)
+              }}
+            />
+          </div>
+          <h1 className="text-2xl text-center font-bold text-muted-foreground md:order-2">Trackman Pitcher Review</h1>
         </div>
-        <h1 className="text-2xl text-center font-bold text-muted-foreground">Trackman Pitcher Review</h1>
       </header>
 
       {file ? (
