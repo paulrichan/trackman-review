@@ -16,7 +16,7 @@ function Usages({ data }: { data: TrackmanData[] }) {
   return (
     <div className="flex flex-col w-full h-full">
       <ResponsiveContainer width="100%" height="85%">
-        <BarChart data={pitchUsage} margin={{ top: 20, right: 20, bottom: 10 }}>
+        <BarChart data={pitchUsage} margin={{ top: 20, right: 20, bottom: 10, left: -20 }}>
           <XAxis dataKey="name" fontSize={12} />
           <YAxis domain={[0, 'dataMax']} />
           <Tooltip
