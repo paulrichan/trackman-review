@@ -25,9 +25,7 @@ function App() {
             className="w-fit px-1"
             onChange={(e) => {
               const file = e.target.files?.[0]
-              if (file) {
-                setFile(file)
-              }
+              setFile(file ?? null)
             }}
           />
         </div>
