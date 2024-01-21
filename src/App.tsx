@@ -29,7 +29,7 @@ function App() {
             }}
           />
         </div>
-        <h1 className="text-2xl text-center font-bold text-muted-foreground">Trackman Review</h1>
+        <h1 className="text-2xl text-center font-bold text-muted-foreground">Trackman Pitcher Review</h1>
       </header>
 
       {file ? (
