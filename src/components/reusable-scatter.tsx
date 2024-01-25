@@ -2,6 +2,7 @@ import { PITCHCOLORS, domainFormatter } from '@/lib/utils'
 import { Cell, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from 'recharts'
 import { useState } from 'react'
 import { Toggle } from './ui/toggle'
+import { useDataStore } from '@/lib/store'
 
 function ReusableScatter({
   data,
@@ -13,13 +14,14 @@ function ReusableScatter({
   dataKeys: { key: keyof TrackmanData; label: string }[]
 }) {
   const [lockToPitch, setLockToPitch] = useState(false)
+  const { decidedPitchType } = useDataStore((state) => state)
   const movementData = data
-    .filter((pitch) => (!lockToPitch ? pitch.TaggedPitchType === pitchType : true))
+    .filter((pitch) => (!lockToPitch ? pitch[decidedPitchType] === pitchType : true))
     .map((pitch) => {
       return {
         [dataKeys[0].label]: Number(pitch[dataKeys[0].key]),
         [dataKeys[1].label]: Number(pitch[dataKeys[1].key]),
-        pitchType: pitch.TaggedPitchType
+        pitchType: pitch[decidedPitchType]
       }
     })
 

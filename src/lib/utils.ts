@@ -16,5 +16,6 @@ export const PITCHCOLORS = {
   ChangeUp: '#77f400',
   Curveball: '#007cc9',
   Splitter: '#e100ff',
-  Cutter: '#f3e54e'
+  Cutter: '#f3e54e',
+  Sinker: '#bb00ff'
 } as { [key: string]: string }

@@ -1,14 +1,17 @@
+import { useDataStore } from '@/lib/store'
 import { PITCHCOLORS } from '@/lib/utils'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 function VeloAreaChart({ pitcherData, pitchType }: { pitcherData: TrackmanData[]; pitchType: string }) {
+  const { decidedPitchType } = useDataStore((state) => state)
+
   // Filter the data to only the selected pitch type
   const chartData = pitcherData
-    .filter((pitch) => pitch.TaggedPitchType === pitchType)
+    .filter((pitch) => pitch[decidedPitchType] === pitchType)
     .map((pitch, idx) => {
       return {
         pitchNo: idx + 1,
-        [pitch.TaggedPitchType]: pitch.RelSpeed
+        [pitch[decidedPitchType]]: pitch.RelSpeed
       }
     })
 

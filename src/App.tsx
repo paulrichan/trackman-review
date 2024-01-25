@@ -10,9 +10,18 @@ import { RawData } from './views/raw'
 import { File } from 'lucide-react'
 import { Label } from './components/ui/label'
 import { Input } from './components/ui/input'
+import { Switch } from './components/ui/switch'
 
 function App() {
-  const [screen, file, setFile] = useDataStore((state) => [state.screen, state.file, state.setFile])
+  const [screen, file, setFile, decidedPitchType, setDecidedPitchType] = useDataStore((state) => [
+    state.screen,
+    state.file,
+    state.setFile,
+    state.decidedPitchType,
+    state.setDecidedPitchType
+  ])
+
+  console.log(decidedPitchType)
 
   return (
     <>
@@ -23,6 +32,7 @@ function App() {
             <Input
               type="file"
               name="file"
+              accept=".csv"
               className="w-fit px-1"
               onChange={(e) => {
                 const file = e.target.files?.[0]
@@ -31,6 +41,27 @@ function App() {
             />
           </div>
           <h1 className="text-2xl text-center font-bold text-muted-foreground md:order-2">Trackman Pitcher Review</h1>
+          <div className="flex items-center space-x-2 order-3 justify-end">
+            <Label
+              htmlFor="decidedPitchType"
+              className={`${decidedPitchType === 'TaggedPitchType' ? 'opacity-100' : 'opacity-50'}`}
+            >
+              Tagged
+            </Label>
+            <Switch
+              id="decidedPitchType"
+              className="data-[state=checked]:bg-input"
+              onCheckedChange={(e) => {
+                setDecidedPitchType(e ? 'AutoPitchType' : 'TaggedPitchType')
+              }}
+            />
+            <Label
+              htmlFor="decidedPitchType"
+              className={`${decidedPitchType === 'AutoPitchType' ? 'opacity-100' : 'opacity-50'}`}
+            >
+              Auto
+            </Label>
+          </div>
         </div>
       </header>
 

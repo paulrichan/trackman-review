@@ -8,7 +8,8 @@ module.exports = {
     'border-l-[#77f400]',
     'border-l-[#007cc9]',
     'border-l-[#e100ff]',
-    'border-l-[#f3e54e]'
+    'border-l-[#f3e54e]',
+    'border-l-[#bb00ff]',
   ],
   prefix: '',
   theme: {

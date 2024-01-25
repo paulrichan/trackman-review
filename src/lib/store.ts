@@ -6,8 +6,12 @@ interface IDataStore {
 
   pitcher: string
   setPitcher: (pitcher: string) => void
+
   pitchType: string
   setPitchType: (pitcher: string) => void
+
+  decidedPitchType: 'TaggedPitchType' | 'AutoPitchType'
+  setDecidedPitchType: (decidedPitchType: 'TaggedPitchType' | 'AutoPitchType') => void
 
   screen: string
   setScreen: (screen: string) => void
@@ -19,6 +23,9 @@ export const useDataStore = create<IDataStore>((set) => ({
 
   screen: 'visuals',
   setScreen: (screen: string) => set({ screen }),
+
+  decidedPitchType: 'TaggedPitchType',
+  setDecidedPitchType: (decidedPitchType: 'TaggedPitchType' | 'AutoPitchType') => set({ decidedPitchType }),
 
   pitcher: '',
   setPitcher: (pitcher: string) => set({ pitcher }),

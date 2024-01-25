@@ -5,7 +5,7 @@ import Parser from 'papaparse'
 export const useTrackmanData = (pitcher: string) => {
   const { file } = useDataStore((state) => ({ file: state.file }))
   const [data, setParsedData] = useState<TrackmanData[] | null>(null)
-  const [pitchType, setPitchType] = useDataStore((state) => [state.pitchType, state.setPitchType])
+  const { pitchType, setPitchType, decidedPitchType } = useDataStore((state) => state)
 
   useEffect(() => {
     const parseData = async () => {
@@ -27,10 +27,11 @@ export const useTrackmanData = (pitcher: string) => {
 
   // Reduce the data to a list of unique pitchers
   const uniquePitchers = useMemo(() => {
+    console.log(data)
     return (
       data?.reduce((acc, cur) => {
-        if (!acc.find((ele) => ele.value.toLowerCase() === cur.Pitcher.toLowerCase())) {
-          acc.push({ value: cur.Pitcher.toLowerCase(), label: cur.Pitcher })
+        if (!acc.find((ele) => ele.value.toLowerCase() === cur.Pitcher?.toLowerCase())) {
+          acc.push({ value: cur.Pitcher?.toLowerCase(), label: cur.Pitcher })
         }
         return acc
       }, [] as { value: string; label: string }[]) ?? []
@@ -39,11 +40,11 @@ export const useTrackmanData = (pitcher: string) => {
 
   // Filter the data to only the selected pitcher
   const pitcherData = useMemo(() => {
-    const filteredData = data?.filter((ele) => ele.Pitcher.toLowerCase() === pitcher.toLowerCase())
-    const uniquePitchTypes = Array.from(new Set(filteredData?.map((data) => data.TaggedPitchType)))
+    const filteredData = data?.filter((ele) => ele.Pitcher?.toLowerCase() === pitcher.toLowerCase())
+    const uniquePitchTypes = Array.from(new Set(filteredData?.map((data) => data[decidedPitchType])))
 
     return { filteredData, uniquePitchTypes }
-  }, [data, pitcher])
+  }, [data, pitcher, decidedPitchType])
 
   useEffect(() => {
     if (!pitchType) {
