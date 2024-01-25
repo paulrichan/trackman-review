@@ -27,7 +27,6 @@ export const useTrackmanData = (pitcher: string) => {
 
   // Reduce the data to a list of unique pitchers
   const uniquePitchers = useMemo(() => {
-    console.log(data)
     return (
       data?.reduce((acc, cur) => {
         if (!acc.find((ele) => ele.value.toLowerCase() === cur.Pitcher?.toLowerCase())) {

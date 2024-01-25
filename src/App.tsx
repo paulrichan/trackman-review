@@ -21,8 +21,6 @@ function App() {
     state.setDecidedPitchType
   ])
 
-  console.log(decidedPitchType)
-
   return (
     <>
       <header className="py-3 border-b border-muted ">
